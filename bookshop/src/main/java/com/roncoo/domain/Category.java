@@ -1,10 +1,8 @@
 package com.roncoo.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -14,7 +12,9 @@ import javax.persistence.Transient;
  */
 
 // table注解，可以修改Category类在数据库的表名
-@Table(name = "roncoo_category")
+// 这里修改了表名，会覆盖application.properties里 命名规则的全局配置的
+// @Table(name = "roncoo_category")
+
 // 此注解，表明，告诉jpa，是要在数据库里生成表的
 @Entity
 public class Category {
@@ -28,7 +28,8 @@ public class Category {
     // 不加注解，默认也会在数据库里，添加属性的
     // 其实，会有默认的注解，@Basic属性的
     // nullable不能为空，unique必须唯一
-    @Column(name = "roncoo_name", length = 10, nullable = false, unique = true)
+    // @Column(name = "roncoo_name", length = 10, nullable = false, unique =
+    // true)
     private String name;
 
     // 这个注解，告诉jpa，下面这个属性，不需要在数据库里生成字段的
