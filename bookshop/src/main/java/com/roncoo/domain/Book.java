@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  * @author erjun 2017年11月11日 上午7:06:46
  */
 @Entity
-public class book {
+public class Book {
 
     @Id
     @GeneratedValue
