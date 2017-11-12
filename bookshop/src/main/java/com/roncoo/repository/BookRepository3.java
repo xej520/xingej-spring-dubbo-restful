@@ -21,4 +21,7 @@ public interface BookRepository3 extends JpaRepository<Book, Long> {
     // CategoryName 要连着写
     List<Book> findByNameAndCategoryName(String bookName, String CategoryName);
 
+    // like 关键字 练习
+    // 根据bookName来查询，模糊查询
+    List<Book> findByNameLike(String bookName);
 }
