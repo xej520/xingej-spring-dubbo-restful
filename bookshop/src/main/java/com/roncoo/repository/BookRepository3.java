@@ -24,4 +24,17 @@ public interface BookRepository3 extends JpaRepository<Book, Long> {
     // like 关键字 练习
     // 根据bookName来查询，模糊查询
     List<Book> findByNameLike(String bookName);
+
+    // OrderBy 关键字 练习
+    // 这里，先对name属性，使用like关键字，也就是，名字 可以支持 模糊查询
+    // 然后，对查询结果，根据name进行 降序排序
+    List<Book> findByNameLikeOrderByNameDesc(String bookName);
+
+    // OrderBy 关键字 练习
+    // 升序排序，默认不写的话，就是升序排序
+    // --------> 总结： 属性 + 关键字 , 如 NameLike；或者 关键字 + 属性操作, 如 OrderByName；
+    // <--------
+    // 如 NameLike
+    // NameDesc， 降序
+    List<Book> findByNameLikeOrderByName(String bookName);
 }

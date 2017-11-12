@@ -110,4 +110,26 @@ public class BookRepositoryTest3 extends BaseTest {
             System.out.println("---book.name----:\t" + book.getName());
         }
     }
+
+    // 静态查询 练习
+    // << OrderBy >> 关键字 练习,
+    // 降序排序
+    @Test
+    public void testOrderByNameDesc() {
+        List<Book> books = bookRespository3.findByNameLikeOrderByNameDesc("%战争%");
+        for (Book book : books) {
+            System.out.println("---book.name----:\t" + book.getName());
+        }
+    }
+
+    // 静态查询 练习
+    // << OrderBy >> 关键字 练习,
+    // 升序排序
+    @Test
+    public void testOrderByName() {
+        List<Book> books = bookRespository3.findByNameLikeOrderByName("%战争%");
+        for (Book book : books) {
+            System.out.println("---book.name----:\t" + book.getName());
+        }
+    }
 }
