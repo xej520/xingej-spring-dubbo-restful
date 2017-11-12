@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -74,6 +75,10 @@ public class Author {
     // 默认是按照主键ID进行升序排序的
     @OrderBy("book.name ASC")
     private List<BookAuthor> books;
+
+    // Author 与 AuthorInfo 是一对一的关系映射
+    @OneToOne
+    private AuthorInfo info;
 
     public Long getId() {
         return id;
@@ -145,6 +150,14 @@ public class Author {
 
     public void setBooks(List<BookAuthor> books) {
         this.books = books;
+    }
+
+    public AuthorInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(AuthorInfo info) {
+        this.info = info;
     }
 
 }
