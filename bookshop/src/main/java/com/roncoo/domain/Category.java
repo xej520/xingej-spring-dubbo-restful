@@ -1,8 +1,11 @@
 package com.roncoo.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 /**
@@ -36,5 +39,47 @@ public class Category {
     // 也就是说，不会同步到数据库的
     @Transient
     private String alias;
+
+    // 一对多的关系
+    // mappedBy="category" 这个属性的意思，是什么呢？
+    // 目前是双向的多对一的关系，多的一方式book，一的一方是Category
+    // 如果不加这个属性的话，双向都在维护这个关系，也就是说，在一对多的一方Category还会创建一个额外的表
+    // 来维护这个关系，因此，我们希望不要维护了，交给多的一方去维护这个关系，这样的话，就不会产生额外的表了
+    // "category" 表示的是在多一个一方，由那个属性来维护这个关系
+    // cascade 表示级联操作，比方说，你删了目录时，同样会删除书的记录
+    @OneToMany(mappedBy = "category")
+    private List<Book> books;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 
 }
