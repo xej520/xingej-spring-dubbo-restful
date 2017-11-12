@@ -28,7 +28,7 @@ public class DomainImpl {
 
     @Temporal(TemporalType.TIMESTAMP)
     // 初始化值，就是创建这个实例对象的时间
-    private Date createTime = new Date();
+    private Date createTime;
 
     private Date updateTime;
 
