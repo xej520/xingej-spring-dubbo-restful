@@ -11,6 +11,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -61,6 +63,17 @@ public class Author {
     // 也可以映射成 自定义的对象，如
     @ElementCollection
     private List<Address> addresses; // 一个作者，可以有多个地址，家里的地址，公司的地址
+
+    // 作者与书 是多对多的映射
+    // 是说，
+    // 一个Author作者可以些多本书，
+    // 是由中间对象里的author属性来维护的
+    @OneToMany(mappedBy = "author")
+    // 当你调用getBooks时，获取到的列表里排序是按照
+    // book里name的属性 升序排序的
+    // 默认是按照主键ID进行升序排序的
+    @OrderBy("book.name ASC")
+    private List<BookAuthor> books;
 
     public Long getId() {
         return id;
@@ -124,6 +137,14 @@ public class Author {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<BookAuthor> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookAuthor> books) {
+        this.books = books;
     }
 
 }
