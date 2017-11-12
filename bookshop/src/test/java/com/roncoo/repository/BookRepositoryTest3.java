@@ -54,4 +54,11 @@ public class BookRepositoryTest3 extends BaseTest {
 
     }
 
+    // 静态查询 练习
+    @Test
+    public void testByStaticFind() {
+        // 查询 计算机 门类里的 spark设计 这本书
+        bookRespository3.findByNameAndCategoryName("spark设计", "计算机");
+    }
+
 }

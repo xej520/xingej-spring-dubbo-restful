@@ -1,5 +1,7 @@
 package com.roncoo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.roncoo.domain.Book;
@@ -11,5 +13,12 @@ import com.roncoo.domain.Book;
  */
 
 public interface BookRepository3 extends JpaRepository<Book, Long> {
+
+    // 静态查询
+    //
+    // 根据book表里的Name属性，以及Category对象里的name属性进行查询
+    // 注意
+    // CategoryName 要连着写
+    List<Book> findByNameAndCategoryName(String bookName, String CategoryName);
 
 }
