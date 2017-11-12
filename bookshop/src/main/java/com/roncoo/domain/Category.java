@@ -3,8 +3,6 @@ package com.roncoo.domain;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -20,13 +18,7 @@ import javax.persistence.Transient;
 
 // 此注解，表明，告诉jpa，是要在数据库里生成表的
 @Entity
-public class Category {
-
-    // 表明是主键
-    @Id
-    // 下面注解：生成主键ID的策略，有4个，默认的是auto，也就是说，根据底层数据库的类型来选择，选择的类型是剩下的3种 的一个
-    @GeneratedValue
-    private Long id;
+public class Category extends DomainImpl {
 
     // 不加注解，默认也会在数据库里，添加属性的
     // 其实，会有默认的注解，@Basic属性的
@@ -49,14 +41,6 @@ public class Category {
     // cascade 表示级联操作，比方说，你删了目录时，同样会删除书的记录
     @OneToMany(mappedBy = "category")
     private List<Book> books;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

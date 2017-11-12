@@ -1,8 +1,6 @@
 package com.roncoo.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
@@ -15,11 +13,7 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
-public class AuthorInfo {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class AuthorInfo extends DomainImpl {
 
     private String school;
 
@@ -29,14 +23,6 @@ public class AuthorInfo {
     // 在表里，不会添加author字段的
     @OneToOne(mappedBy = "info")
     private Author author;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getSchool() {
         return school;

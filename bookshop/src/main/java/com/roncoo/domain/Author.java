@@ -9,8 +9,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
@@ -22,11 +20,7 @@ import javax.persistence.TemporalType;
  * @author erjun 2017年11月11日 上午5:49:08
  */
 @Entity
-public class Author {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Author extends DomainImpl {
 
     private String name;
 
@@ -79,14 +73,6 @@ public class Author {
     // Author 与 AuthorInfo 是一对一的关系映射
     @OneToOne
     private AuthorInfo info;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

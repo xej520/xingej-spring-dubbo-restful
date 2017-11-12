@@ -3,8 +3,6 @@ package com.roncoo.domain;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -18,11 +16,7 @@ import javax.persistence.OneToMany;
  * @author erjun 2017年11月11日 上午7:06:46
  */
 @Entity
-public class Book {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Book extends DomainImpl {
 
     private String name;
 
@@ -37,14 +31,6 @@ public class Book {
     // 交给中间对象里的book属性来维护的
     @OneToMany(mappedBy = "book")
     private List<BookAuthor> authors;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
