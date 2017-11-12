@@ -21,7 +21,7 @@ import com.roncoo.domain.Book;
  * 
  * @author erjun 2017年11月12日 上午10:46:22
  */
-public interface BookRespository extends CrudRepository<Book, Long> {
+public interface BookRepository extends CrudRepository<Book, Long> {
     // 根据name属性来查询book列表
     public List<Book> findByName(String name);
 

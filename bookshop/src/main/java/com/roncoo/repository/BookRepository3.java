@@ -10,6 +10,6 @@ import com.roncoo.domain.Book;
  * @author erjun 2017年11月12日 下午7:46:17
  */
 
-public interface BookRespository3 extends JpaRepository<Book, Long> {
+public interface BookRepository3 extends JpaRepository<Book, Long> {
 
 }

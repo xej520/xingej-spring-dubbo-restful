@@ -9,6 +9,6 @@ import com.roncoo.domain.Book;
  * 
  * @author erjun 2017年11月12日 下午6:48:19
  */
-public interface BookRespository2 extends PagingAndSortingRepository<Book, Long> {
+public interface BookRepository2 extends PagingAndSortingRepository<Book, Long> {
 
 }

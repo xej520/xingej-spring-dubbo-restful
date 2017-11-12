@@ -14,10 +14,10 @@ import org.springframework.data.domain.Sort.Order;
 import com.roncoo.BaseTest;
 import com.roncoo.domain.Book;
 
-public class BookRespositoryTest2 extends BaseTest {
+public class BookRepositoryTest2 extends BaseTest {
 
     @Autowired
-    private BookRespository2 bookRespository2;
+    private BookRepository2 bookRespository2;
 
     // 排序查询
     @Test

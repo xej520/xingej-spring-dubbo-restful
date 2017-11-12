@@ -14,7 +14,7 @@ import com.roncoo.domain.Book;
 
 public class BookRepositoryTest3 extends BaseTest {
     @Autowired
-    private BookRespository3 bookRespository3;
+    private BookRepository3 bookRespository3;
 
     // 查询 练习
     // 查询书名是 分布式系统架构与设计

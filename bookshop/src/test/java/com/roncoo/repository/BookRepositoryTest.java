@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.roncoo.BaseTest;
 import com.roncoo.domain.Book;
 
-public class BookRespositoryTest extends BaseTest {
+public class BookRepositoryTest extends BaseTest {
 
     // 当spring启动的时候，发现BookRespository 继承了Repository 接口，
     // 会自动为实现Repository接口的子类，创建一个代理对象，
     @Autowired
-    private BookRespository bookRepository;
+    private BookRepository bookRepository;
 
     @Test
     public void testFindByName() {
