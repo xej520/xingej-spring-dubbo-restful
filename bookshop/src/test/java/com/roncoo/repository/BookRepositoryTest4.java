@@ -60,4 +60,15 @@ public class BookRepositoryTest4 extends BaseTest {
         System.out.println("----count---:\t" + count);
     }
 
+    // 静态查询
+    // 使用的是原生SQL语句
+    @Test
+    public void testBySQL() {
+        List<Book> content = bookRep.findBySQL("战争");
+
+        for (Book book : content) {
+            System.out.println("---->:\t" + book.getName());
+        }
+    }
+
 }
