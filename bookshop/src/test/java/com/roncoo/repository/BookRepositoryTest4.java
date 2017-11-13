@@ -21,8 +21,21 @@ public class BookRepositoryTest4 extends BaseTest {
     @Autowired
     private BookRepository4 bookRep;
 
+    // 静态查询
     @Test
     public void testByQuery() {
+        Page<Book> books = bookRep.findBooks("战争", "计算机", new PageRequest(0, 10, Direction.DESC, "name"));
+        List<Book> bookContent = books.getContent();
+
+        for (Book book : bookContent) {
+            System.out.println("--->:\t" + book.getName());
+        }
+
+    }
+
+    // 静态查询
+    @Test
+    public void testByQuery2() {
         Page<Book> books = bookRep.findBooks("战争", "计算机", new PageRequest(0, 10, Direction.DESC, "name"));
         List<Book> bookContent = books.getContent();
 

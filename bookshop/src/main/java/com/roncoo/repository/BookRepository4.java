@@ -22,7 +22,12 @@ import com.roncoo.domain.Book;
  */
 public interface BookRepository4 extends JpaRepository<Book, String> {
 
-    // JPQ语法，
+    // JPQ语法，返回全部的内容，
     @Query("from Book b where b.name like ?1 and b.category.name = ?2 order by b.name desc")
     Page<Book> findBooks(String bookName, String categoryName, Pageable sort);
+
+    // JPQ语法，返回指定的内容，
+    @Query("select b from Book b where b.name like ?1 and b.category.name = ?2 order by b.name desc")
+    Page<Book> findBooks2(String bookName, String categoryName, Pageable sort);
+
 }
