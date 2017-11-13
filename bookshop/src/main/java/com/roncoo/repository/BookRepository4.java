@@ -3,6 +3,7 @@ package com.roncoo.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.roncoo.domain.Book;
@@ -35,4 +36,8 @@ public interface BookRepository4 extends JpaRepository<Book, String> {
     @Query("select count(*) from Book b where b.name like ?1 and b.category.name = ?2 ")
     int findBooksNum(String bookName, String categoryName);
 
+    // 更新指定ID 的Book的姓名
+    @Query("update Book b set b.name = ?1 where b.id = ?2")
+    @Modifying // 告诉jpa，这是个修改数据库的语句，并不是查询哦
+    int updateBookName(String bookName, Long bookId);
 }

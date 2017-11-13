@@ -51,4 +51,13 @@ public class BookRepositoryTest4 extends BaseTest {
         int count = bookRep.findBooksNum("战争", "计算机");
         System.out.println("----count---:\t" + count);
     }
+
+    // 静态查询
+    // 更新数据库的操作，非查询数据库操作哦
+    @Test
+    public void testByUpdate() {
+        int count = bookRep.updateBookName("战争2", 1L);
+        System.out.println("----count---:\t" + count);
+    }
+
 }
