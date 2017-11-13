@@ -45,4 +45,10 @@ public class BookRepositoryTest4 extends BaseTest {
 
     }
 
+    // 静态查询
+    @Test
+    public void testByQueryCount() {
+        int count = bookRep.findBooksNum("战争", "计算机");
+        System.out.println("----count---:\t" + count);
+    }
 }

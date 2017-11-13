@@ -30,4 +30,9 @@ public interface BookRepository4 extends JpaRepository<Book, String> {
     @Query("select b from Book b where b.name like ?1 and b.category.name = ?2 order by b.name desc")
     Page<Book> findBooks2(String bookName, String categoryName, Pageable sort);
 
+    // 编写复杂的查询
+    // JPQ语法，count()查询
+    @Query("select count(*) from Book b where b.name like ?1 and b.category.name = ?2 ")
+    int findBooksNum(String bookName, String categoryName);
+
 }
