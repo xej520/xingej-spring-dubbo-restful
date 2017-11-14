@@ -20,6 +20,9 @@ public class FetchTest extends BaseTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private FetchRepository fetchRepository;
+
     @Test
     public void testByFindOne() {
         // 使用findOne 查询的话，执行了关联查询
@@ -40,6 +43,14 @@ public class FetchTest extends BaseTest {
             System.out.println("---->:\t" + book.getCategory().getName());
         }
 
+    }
+
+    // 测试目的，使用 @EntityGraph(attributePaths = "category") 注解
+    // 只要调用findByName 方法，都会执行一次关联查询，查询category表的内容
+    @Test
+    public void test2() {
+
+        fetchRepository.findByName("战争");
     }
 
 }
