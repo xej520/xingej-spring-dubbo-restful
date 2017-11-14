@@ -47,4 +47,18 @@ public class BookRepositoryTest6 extends BaseTest {
 
     }
 
+    // 持久化上下文，测试一级缓存
+    // 注意，测试这个用例，别忘记了，将BaseTest里打开 @Transactional事务机制啊，就是取消掉注释
+    @Test
+    public void test2() {
+
+        // 这里，进行了查询
+        // 第一次会查询，然后会将结果存储到持久化上下文里，
+        bookRepostiory.findOne(1L);
+
+        // 第二次，其实，查询时，先从持久化上下文里，查询，有的话，直接返回，没有再从数据库里查询
+        // 就是一级缓存哦
+        bookRepostiory.findOne(1L);
+    }
+
 }

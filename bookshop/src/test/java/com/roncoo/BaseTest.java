@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class) // 使用SpringRunner.class 来运行我的测试用例
 @SpringBootTest(classes = BookShopApplication.class) // 告诉测试用例，程序的应用入口在哪里
-// @Transactional // 数据库操作都是事务的，并且，测试完成后，会进行回滚，比方说，删除记录，并不是真正的删除，会进行回滚的
+@Transactional // 数据库操作都是事务的，并且，测试完成后，会进行回滚，比方说，删除记录，并不是真正的删除，会进行回滚的
 public class BaseTest {
 
 }
