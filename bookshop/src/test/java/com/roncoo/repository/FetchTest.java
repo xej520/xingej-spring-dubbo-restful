@@ -1,5 +1,7 @@
 package com.roncoo.repository;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +28,18 @@ public class FetchTest extends BaseTest {
         Book book = bookRepository.findOne(1L);
 
         System.out.println(book.getCategory().getName());
+    }
+
+    @Test
+    public void testByFindByName() {
+        // 自定义的findByName方法，会 执行两条SQL语句，才可以将关联的另一个表内容查询出来
+        // 效率降低了。
+        List<Book> books = bookRepository.findByName("战争");
+
+        for (Book book : books) {
+            System.out.println("---->:\t" + book.getCategory().getName());
+        }
+
     }
 
 }
