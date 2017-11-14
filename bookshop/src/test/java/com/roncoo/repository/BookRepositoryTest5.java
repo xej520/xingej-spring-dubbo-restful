@@ -15,6 +15,11 @@ import org.springframework.data.jpa.domain.Specification;
 import com.roncoo.BaseTest;
 import com.roncoo.domain.Book;
 
+/**
+ * 动态查询
+ * 
+ * @author erjun 2017年11月15日 上午7:10:18
+ */
 public class BookRepositoryTest5 extends BaseTest {
 
     @Autowired
