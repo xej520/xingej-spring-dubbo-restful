@@ -64,14 +64,14 @@ public class BookRepositoryTest6 extends BaseTest {
     // 持久化上下文，测试一级缓存
     @Test
     public void test3() {
-
+        // 这里执行两条SQL语句，查询
         bookRepostiory.findAll();
         bookRepostiory.findAll();
 
         // 总结：
 
-        // 只有findone(ID) 才启用了持久化上下文，其他findAll并没有
-        // 而且，findOne(id) id相同时，才启动的的
+        // 只有findone(ID) 才启用了持久化上下文一级缓存，其他findAll并没有
+        // 而且，findOne(id) id相同时，才启用的一级缓存
     }
 
 }
