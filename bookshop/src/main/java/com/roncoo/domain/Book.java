@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 
 /**
@@ -16,6 +18,12 @@ import javax.persistence.OneToMany;
  * @author erjun 2017年11月11日 上午7:06:46
  */
 @Entity
+// 下面这个注解是用来，进行 测试 抓取策略的；作用就是定义了一个抓取策略
+// name属性的值，定义抓取策略的名称，可以随便起，但最好有意义
+// 后面是要关联查询的字段名称
+@NamedEntityGraph(name = "Book.fetch.category.and.author", attributeNodes = { @NamedAttributeNode(value = "category"),
+
+        @NamedAttributeNode(value = "authors") })
 public class Book extends DomainImpl {
 
     private String name;

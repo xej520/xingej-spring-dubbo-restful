@@ -23,6 +23,9 @@ public class FetchTest extends BaseTest {
     @Autowired
     private FetchRepository fetchRepository;
 
+    @Autowired
+    private FetchRepository2 fetchRepository2;
+
     @Test
     public void testByFindOne() {
         // 使用findOne 查询的话，执行了关联查询
@@ -49,8 +52,14 @@ public class FetchTest extends BaseTest {
     // 只要调用findByName 方法，都会执行一次关联查询，查询category表的内容
     @Test
     public void test2() {
-
+        // 测试抓取策略
         fetchRepository.findByName("战争");
     }
 
+    @Test
+    public void test3() {
+        // 测试，自定义 抓取策略
+        // 抓取的目的，就是，通过一条SQL语句，来查询出所有关联表的内容
+        fetchRepository2.findByName("战争");
+    }
 }
