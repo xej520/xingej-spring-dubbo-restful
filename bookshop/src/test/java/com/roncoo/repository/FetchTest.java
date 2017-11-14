@@ -43,7 +43,15 @@ public class FetchTest extends BaseTest {
         List<Book> books = bookRepository.findByName("战争");
 
         for (Book book : books) {
-            System.out.println("---->:\t" + book.getCategory().getName());
+            // ------ 如果没有使用关联查询的话-------，
+            // 上面的语句，只会查询出book的内容
+            // 等到程序执行到这里，需要获取Category的内容时，还会进行查询数据库的
+            // 因此，效率是低的
+            System.out.println("--1-->:\t" + book.getCategory().getName());
+            System.out.println("--2-->:\t" + book.getCategory().getName());
+            System.out.println("--3-->:\t" + book.getCategory().getAlias());
+            // 上面的3条打印输出，查询时，只会查询一次，应该是利用了
+            // 持久化上下文一级缓存的知识
         }
 
     }
