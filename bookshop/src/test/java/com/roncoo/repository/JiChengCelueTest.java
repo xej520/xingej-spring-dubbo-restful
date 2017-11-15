@@ -29,6 +29,9 @@ public class JiChengCelueTest extends BaseTest {
     @Autowired
     private BookRepository3 bookRepository3;
 
+    @Autowired
+    private EbookRepository eBookRepository;
+
     @Test
     public void test() {
         // 创建一个PrintBook
@@ -54,6 +57,25 @@ public class JiChengCelueTest extends BaseTest {
 
         // bookList.stream().forEach(book ->
         // System.out.println(book.getClass().getSimpleName()));
+
+        // bookList.forEach(book ->
+        // System.out.println(book.getClass().getSimpleName()));
+
+    }
+
+    // 使用findAll，默认是查询出所有的记录，？
+    // 但是，我希望，只查询出关于Ebook的记录，如何呢？
+    // 方法：
+    // 先产生一个关于Ebook的eBookRepository
+    @Test
+    public void test2() {
+
+        // findAll是把所有的数据都查询出来的，然后转换成对应的子类如PrintBook, Ebook
+        List<Ebook> bookList = eBookRepository.findAll();
+
+        System.out.println("---->" + bookList.size());
+
+        bookList.stream().forEach(book -> System.out.println(book.getClass().getSimpleName()));
 
         // bookList.forEach(book ->
         // System.out.println(book.getClass().getSimpleName()));
