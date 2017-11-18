@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 /**
  * 测试数据库表之间的关系
@@ -40,6 +41,13 @@ public class Book extends DomainImpl {
     @OneToMany(mappedBy = "book")
     private List<BookAuthor> authors;
 
+    // 乐观锁 ， 只要添加这个 注解，就可以了
+    // ---------------<乐观锁的包>-----------------
+    // 不是springframework的，而是
+    // import javax.persistence.Version;
+    @Version
+    private int version;
+
     public String getName() {
         return name;
     }
@@ -62,6 +70,14 @@ public class Book extends DomainImpl {
 
     public void setAuthors(List<BookAuthor> authors) {
         this.authors = authors;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
 }
