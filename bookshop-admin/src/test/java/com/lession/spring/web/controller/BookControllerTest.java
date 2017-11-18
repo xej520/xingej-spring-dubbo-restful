@@ -55,4 +55,12 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
 
+    // 请求时，添加 参数
+    @Test
+    public void whenQuerySuccessAndParams() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params").param("name", "hello, restfull")
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
 }

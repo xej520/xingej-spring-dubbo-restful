@@ -32,4 +32,18 @@ public class BookController {
         return books;
     }
 
+    // 请求时，接收参数
+    @RequestMapping(value = "/book/params", method = RequestMethod.GET)
+    public List<BookInfo> queryAndParams(String name) {// 参数 直接 接收的
+        List<BookInfo> books = new ArrayList<>();
+
+        System.out.println("----name----:\t" + name);
+
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+
+        return books;
+    }
+
 }
