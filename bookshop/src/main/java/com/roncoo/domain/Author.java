@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 
@@ -81,6 +82,11 @@ public class Author extends DomainImpl {
     // 这里，每次都会校验是否符合email规则的
     // 不符合要求的话，存储失败的
     @Email
+    @NotBlank // 这个注解不会向@Column的注解一样，
+    // Valodator的注解不会影响 数据库表的定义，也就是说，虽然，你这里定义了，此email字段不能
+    // 为空，但是，数据库表的属性里，并没有进行设定。
+    // 这个注解，只是在程序运行时，将要往数据库里存的时候，才真正的校验是不是为空
+    // @Column 注解，会真正的影响 你的数据库表的定义，你可以从数据表的属性里，看出来是不是定义了，
     private String email;
 
     public String getName() {
