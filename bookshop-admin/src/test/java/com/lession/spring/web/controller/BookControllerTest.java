@@ -58,7 +58,20 @@ public class BookControllerTest {
     // 请求时，添加 参数
     @Test
     public void whenQuerySuccessAndParams() throws Exception {
+        // name 请求参数，controller层里，接收时，也必须是name
+        // 请求 与 接收 必须保持一致
         mockMvc.perform(MockMvcRequestBuilders.get("/book/params").param("name", "hello, restfull")
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
+    // 请求时，添加 参数, 接收方，使用@RequestMapping注解
+    @Test
+    public void whenQuerySuccessAndParams2() throws Exception {
+        // name 请求参数，controller层里，接收时，也必须是name
+        // 请求 与 接收 必须保持一致
+        // name是请求参数名称，你用这个发送请求，那么，接收方，也必须，以这个参数来接收啊，
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params2").param("name", "hello, restfull")
                 .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
