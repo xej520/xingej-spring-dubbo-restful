@@ -1,9 +1,7 @@
 package com.roncoo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
 import com.roncoo.domain.Book;
+import com.roncoo.support.BSRepository;
 
 /**
  * 动态查询
@@ -18,6 +16,6 @@ import com.roncoo.domain.Book;
  * 
  * @author erjun 2017年11月14日 上午6:28:05
  */
-public interface BookRepository5 extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
+public interface BookRepository5 extends BSRepository<Book> {
 
 }

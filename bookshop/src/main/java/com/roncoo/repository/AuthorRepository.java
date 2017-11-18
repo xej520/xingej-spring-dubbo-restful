@@ -1,9 +1,7 @@
 package com.roncoo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
 import com.roncoo.domain.Author;
+import com.roncoo.support.BSRepository;
 
 /**
  * 参数校验
@@ -12,6 +10,6 @@ import com.roncoo.domain.Author;
  * 
  * @author erjun 2017年11月18日 下午5:27:42
  */
-public interface AuthorRepository extends JpaRepository<Author, Long>, JpaSpecificationExecutor<Author> {
+public interface AuthorRepository extends BSRepository<Author> {
 
 }
