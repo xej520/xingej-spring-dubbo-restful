@@ -15,6 +15,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Email;
+
 /**
  * 
  * @author erjun 2017年11月11日 上午5:49:08
@@ -73,6 +75,13 @@ public class Author extends DomainImpl {
     // Author 与 AuthorInfo 是一对一的关系映射
     @OneToOne
     private AuthorInfo info;
+
+    // 参数校验吧，就是
+    // 在存储到数据库的时候，自动会校验一次，是否符合你指定的规则
+    // 这里，每次都会校验是否符合email规则的
+    // 不符合要求的话，存储失败的
+    @Email
+    private String email;
 
     public String getName() {
         return name;
@@ -144,6 +153,14 @@ public class Author extends DomainImpl {
 
     public void setInfo(AuthorInfo info) {
         this.info = info;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
