@@ -35,6 +35,11 @@ public class BookController {
 
     // 请求时，接收参数
     @RequestMapping(value = "/book/params", method = RequestMethod.GET)
+    // 参数名称，规定死了，
+    // URL里的请求参数名称 与 接收参数里的 参数名称 的关系
+    // 如果没有使用@RequestParam 注解的话，那么必须一致；
+    // name，请求是name, 这里进行接收时也必须是name， 不过不是name的话，就接收不到了
+    // 如果使用注解的话，可以不一样的
     public List<BookInfo> queryAndParams(String name) {// 参数 直接 接收的
         List<BookInfo> books = new ArrayList<>();
 
