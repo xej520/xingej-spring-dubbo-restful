@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -128,6 +129,19 @@ public class BookController {
         books.add(new BookInfo());
 
         return books;
+    }
+
+    // 注意，这里 只能用value，不能name="/book/{id}"
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public BookInfo getInfo(@PathVariable Long id) {
+        System.out.println("---id----:\t" + id);
+
+        BookInfo bookInfo = new BookInfo();
+
+        bookInfo.setId(id);
+        bookInfo.setName("战争与和平");
+
+        return bookInfo;
     }
 
 }

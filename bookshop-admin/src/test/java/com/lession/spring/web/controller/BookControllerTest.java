@@ -118,4 +118,15 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.length()").value(3));
     }
 
+    @Test
+    public void whenQueryInfo() throws Exception {
+        // 请求ID为1的 book内容
+        // $.name 是说，返回的json 格式里，有一个name属性，
+        String result = mockMvc.perform(get("/book/1").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name").value("战争与和平")).andReturn().getResponse()
+                .getContentAsString();
+
+        System.out.println("---->:\t" + result);
+    }
+
 }
