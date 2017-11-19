@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,6 +99,24 @@ public class BookController {
     // 请求方/调用方/postman/页面等请求时，还是不变，一个参数一个参数的传递。
     @RequestMapping(value = "/book/params4", method = RequestMethod.GET)
     public List<BookInfo> queryByCondition(BookCondition bookCondition, Pageable pageable) {
+        List<BookInfo> books = new ArrayList<>();
+
+        System.out.println("----pageable--第几页--:\t" + pageable.getPageNumber());
+        System.out.println("----pageable--每页多少条记录--:\t" + pageable.getPageSize());
+        System.out.println("----pageable--排序：:\t" + pageable.getSort());
+
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+
+        return books;
+    }
+
+    // 分页测试 之 @PageableDefault,修每页有多少条记录
+    @RequestMapping(value = "/book/params5", method = RequestMethod.GET)
+    public List<BookInfo> queryByCondition5(BookCondition bookCondition,
+            // 将默认值20改成10，每页显示10条记录
+            @PageableDefault(size = 10) Pageable pageable) {
         List<BookInfo> books = new ArrayList<>();
 
         System.out.println("----pageable--第几页--:\t" + pageable.getPageNumber());

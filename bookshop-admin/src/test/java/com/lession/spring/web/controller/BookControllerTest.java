@@ -95,4 +95,14 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
 
+    // 分页 测试
+    // 使用了注解@PageableDefault,来修改默认的参数，如每页有多少条记录
+    @Test
+    public void whenQuerySuccessAndParams5() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params5").param("name", "hello, restfull")
+                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
 }
