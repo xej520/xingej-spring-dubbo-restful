@@ -3,6 +3,7 @@ package com.lession.spring.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,6 +84,25 @@ public class BookController {
 
         System.out.println("----name----:\t" + bookCondition.getName());
         System.out.println("----CategoryId----:\t" + bookCondition.getCategoryId());
+
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+
+        return books;
+    }
+
+    // 测试的是
+    // controller层里，
+    // 参数很多的 的情况下，将这些参数，进行封装成一个类
+    // 请求方/调用方/postman/页面等请求时，还是不变，一个参数一个参数的传递。
+    @RequestMapping(value = "/book/params4", method = RequestMethod.GET)
+    public List<BookInfo> queryByCondition(BookCondition bookCondition, Pageable pageable) {
+        List<BookInfo> books = new ArrayList<>();
+
+        System.out.println("----pageable--第几页--:\t" + pageable.getPageNumber());
+        System.out.println("----pageable--每页多少条记录--:\t" + pageable.getPageSize());
+        System.out.println("----pageable--排序：:\t" + pageable.getSort());
 
         books.add(new BookInfo());
         books.add(new BookInfo());

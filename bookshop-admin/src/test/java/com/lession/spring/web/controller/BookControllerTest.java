@@ -85,4 +85,14 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
 
+    // 分页 测试
+    // 因为Pageable 有默认值，因此，pageable可以不添加参数也可以的
+    @Test
+    public void whenQuerySuccessAndParams4() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params4").param("name", "hello, restfull")
+                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
 }
