@@ -105,4 +105,22 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
 
+    // 分页 测试
+    // 使用了注解@PageableDefault,来修改默认的参数，如每页有多少条记录
+
+    // -----*****注意啦*****-----------
+    // param("sort", "name, desc") 这是错误的写法，name 后面的逗号，不能有空格，正确的写法是
+    // param("sort", "name,desc") 这是正确的写法
+    // -----*****注意啦*****-----------
+
+    @Test
+    public void whenQuerySuccessAndParams5a() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params5").param("name", "hello, restfull").param("page", "1") // 查询2页的内容
+                .param("size", "5") // 每页显示5条记录
+                .param("sort", "name,desc", "createTime,asc") // 根据name字段，进行降序排序;可以对多个字段，进行排序
+                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
 }
