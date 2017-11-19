@@ -2,6 +2,7 @@ package com.lession.spring.web.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -192,6 +193,17 @@ public class BookControllerTest {
         String context = "{\"id\":1,\"name\":\"战争与和平\",\"context\":null,\"publishDate\":\"2017-11-19\"}";
 
         mockMvc.perform(post("/book/c4").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
+    }
+
+    // ---------------------下面是 -----更新操作--------------------------------------
+
+    @Test
+    public void whenupdateSuccess() throws Exception {
+
+        String context = "{\"id\":1,\"name\":\"战争与和平\",\"context\":\"战争与和平2\",\"publishDate\":\"2017-11-19\"}";
+
+        mockMvc.perform(put("/book/1").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
     }
 
