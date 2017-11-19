@@ -129,4 +129,13 @@ public class BookControllerTest {
         System.out.println("---->:\t" + result);
     }
 
+    // 测试错误情况
+
+    @Test
+    public void whenQueryFailed() throws Exception {
+        mockMvc.perform(get("/book/ids/10").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().is4xxClientError());
+
+    }
+
 }

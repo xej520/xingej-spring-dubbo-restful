@@ -148,4 +148,18 @@ public class BookController {
         return bookInfo;
     }
 
+    // 使用正则表达式，来对URL进行校验
+    // 例子的需求是，现在id 的位数为1位，超过1位就报错，如11,12,13 就会报错的
+    @GetMapping(value = "/ids/{id:\\d}")
+    public BookInfo getInfo2(@PathVariable Long id) {
+        System.out.println("---id----:\t" + id);
+
+        BookInfo bookInfo = new BookInfo();
+
+        bookInfo.setId(id);
+        bookInfo.setName("战争与和平");
+
+        return bookInfo;
+    }
+
 }
