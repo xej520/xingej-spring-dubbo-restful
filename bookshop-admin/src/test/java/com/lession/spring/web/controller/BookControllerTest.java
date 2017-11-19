@@ -1,5 +1,6 @@
 package com.lession.spring.web.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -205,6 +206,14 @@ public class BookControllerTest {
 
         mockMvc.perform(put("/book/1").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
+    }
+
+    // ---------------------下面是 -----删除操作--------------------------------------
+
+    @Test
+    public void whendeleteSuccess() throws Exception {
+
+        mockMvc.perform(delete("/book/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
 }

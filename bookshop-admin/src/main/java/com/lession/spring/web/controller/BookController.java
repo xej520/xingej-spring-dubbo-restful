@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -231,6 +232,15 @@ public class BookController {
         System.out.println("--->:\t" + bookInfo);
 
         return bookInfo;
+    }
+    // ---------------------下面是 -----删除操作--------------------------------------
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        // 接收到请求，打印出
+        System.out.println("--->:\t" + id);
+
     }
 
 }
