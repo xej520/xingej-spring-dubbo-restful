@@ -76,4 +76,13 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
     }
 
+    // 请求时，添加 参数, 接收方，使用@RequestMapping注解
+    @Test
+    public void whenQuerySuccessAndParams3() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/book/params3").param("name", "hello, restfull")
+                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+    }
+
 }
