@@ -1,5 +1,7 @@
 package com.lession.spring.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * 
  * 为什么不直接使用book? 而是 bookinfo
@@ -24,10 +26,30 @@ package com.lession.spring.dto;
  */
 public class BookInfo {
 
+    // 视图，是这样的，
+    // 有些查询，某个字段可以显示，
+    // 而有些查询，某个字段就不能显示
+    // 因此，定义了下面的视图；如context字段，返回结果是列表时，就没有必要显示
+    // 只是在单个查询详情里，显示此字段
+
+    // 定义了两个视图接口
+    // 针对的controller层里不同的查询业务
+    // 列表查询业务
+    public interface BookListView {
+    };
+
+    // 详情查询业务
+    public interface BookDetailView extends BookListView {
+    };
+
     private Long id;
 
     private String name;
 
+    private String context;
+
+    // id字段，在BookListView 视图/查询时，显示
+    @JsonView(BookListView.class)
     public Long getId() {
         return id;
     }
@@ -36,12 +58,29 @@ public class BookInfo {
         this.id = id;
     }
 
+    // name字段，在BookListView 视图/查询时，显示
+    @JsonView(BookListView.class)
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    // context字段，在BookDetailView 视图/查询时，显示
+    @JsonView(BookDetailView.class)
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    @Override
+    public String toString() {
+        return "BookInfo [id=" + id + ", name=" + name + ", context=" + context + "]";
     }
 
 }

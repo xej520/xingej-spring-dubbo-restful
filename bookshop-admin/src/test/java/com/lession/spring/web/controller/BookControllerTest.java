@@ -111,11 +111,15 @@ public class BookControllerTest {
 
     @Test
     public void whenQuerySuccessAndParams5a() throws Exception {
-        mockMvc.perform(get("/book/params5").param("name", "hello, restfull").param("page", "1") // 查询2页的内容
-                .param("size", "5") // 每页显示5条记录
-                .param("sort", "name,desc", "createTime,asc") // 根据name字段，进行降序排序;可以对多个字段，进行排序
-                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(3));
+        String result = mockMvc
+                .perform(get("/book/params5").param("name", "hello, restfull").param("page", "1") // 查询2页的内容
+                        .param("size", "5") // 每页显示5条记录
+                        .param("sort", "name,desc", "createTime,asc") // 根据name字段，进行降序排序;可以对多个字段，进行排序
+                        .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(3)).andReturn().getResponse()
+                .getContentAsString();
+
+        System.out.println("-----result-----:\t" + result);
     }
 
     @Test

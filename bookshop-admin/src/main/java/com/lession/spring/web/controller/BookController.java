@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.lession.spring.dto.BookCondition;
 import com.lession.spring.dto.BookInfo;
+import com.lession.spring.dto.BookInfo.BookDetailView;
+import com.lession.spring.dto.BookInfo.BookListView;
 
 /**
  * 构建BookController
@@ -101,6 +104,8 @@ public class BookController {
     // 参数很多的 的情况下，将这些参数，进行封装成一个类
     // 请求方/调用方/postman/页面等请求时，还是不变，一个参数一个参数的传递。
     @RequestMapping(value = "/params4", method = RequestMethod.GET)
+    // 定义视图
+    @JsonView(BookListView.class)
     public List<BookInfo> queryByCondition(BookCondition bookCondition, Pageable pageable) {
         List<BookInfo> books = new ArrayList<>();
 
@@ -117,6 +122,7 @@ public class BookController {
 
     // 分页测试 之 @PageableDefault,修每页有多少条记录
     @RequestMapping(value = "/params5", method = RequestMethod.GET)
+    @JsonView(BookListView.class)
     public List<BookInfo> queryByCondition5(BookCondition bookCondition,
             // 将默认值20改成10，每页显示10条记录
             @PageableDefault(size = 10) Pageable pageable) {
@@ -137,6 +143,7 @@ public class BookController {
     // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     // 可以使用GetMapping来代替RequestMapping
     @GetMapping(value = "/{id}")
+    @JsonView(BookDetailView.class)
     public BookInfo getInfo(@PathVariable Long id) {
         System.out.println("---id----:\t" + id);
 
