@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -133,7 +134,9 @@ public class BookController {
     }
 
     // 注意，这里 只能用value，不能name="/book/{id}"
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    // 可以使用GetMapping来代替RequestMapping
+    @GetMapping(value = "/{id}")
     public BookInfo getInfo(@PathVariable Long id) {
         System.out.println("---id----:\t" + id);
 
