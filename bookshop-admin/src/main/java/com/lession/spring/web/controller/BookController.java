@@ -20,13 +20,14 @@ import com.lession.spring.dto.BookInfo;
  * @author erjun 2017年11月18日 下午10:44:43
  */
 @RestController
+@RequestMapping(value = "/book")
 public class BookController {
 
     // 这就是一个rest服务，接收一个book请求，然后调用query()方法
     // 返还一个空的集合
     // rest风格，是通过Method来表示 动作的，就是表示，你要干啥
     // RequestMethod.GET 只接收get请求
-    @RequestMapping(value = "/book", method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "" }, method = RequestMethod.GET)
     public List<BookInfo> query() {
         List<BookInfo> books = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class BookController {
     }
 
     // 请求时，接收参数
-    @RequestMapping(value = "/book/params", method = RequestMethod.GET)
+    @RequestMapping(value = "/params", method = RequestMethod.GET)
     // 参数名称，规定死了，
     // URL里的请求参数名称 与 接收参数里的 参数名称 的关系
     // 如果没有使用@RequestParam 注解的话，那么必须一致；
@@ -57,7 +58,7 @@ public class BookController {
     }
 
     // 请求时，接收参数
-    @RequestMapping(value = "/book/params2", method = RequestMethod.GET)
+    @RequestMapping(value = "/params2", method = RequestMethod.GET)
     // 如果此时，你不想叫name了，也可以使用
     // @RequestParam
     // 在这个注解里，你用name 或者 value 都是一样的，他俩等价
@@ -80,7 +81,7 @@ public class BookController {
     // controller层里，
     // 参数很多的 的情况下，将这些参数，进行封装成一个类
     // 请求方/调用方/postman/页面等请求时，还是不变，一个参数一个参数的传递。
-    @RequestMapping(value = "/book/params3", method = RequestMethod.GET)
+    @RequestMapping(value = "/params3", method = RequestMethod.GET)
     public List<BookInfo> queryByCondition(BookCondition bookCondition) {
         List<BookInfo> books = new ArrayList<>();
 
@@ -98,7 +99,7 @@ public class BookController {
     // controller层里，
     // 参数很多的 的情况下，将这些参数，进行封装成一个类
     // 请求方/调用方/postman/页面等请求时，还是不变，一个参数一个参数的传递。
-    @RequestMapping(value = "/book/params4", method = RequestMethod.GET)
+    @RequestMapping(value = "/params4", method = RequestMethod.GET)
     public List<BookInfo> queryByCondition(BookCondition bookCondition, Pageable pageable) {
         List<BookInfo> books = new ArrayList<>();
 
@@ -114,7 +115,7 @@ public class BookController {
     }
 
     // 分页测试 之 @PageableDefault,修每页有多少条记录
-    @RequestMapping(value = "/book/params5", method = RequestMethod.GET)
+    @RequestMapping(value = "/params5", method = RequestMethod.GET)
     public List<BookInfo> queryByCondition5(BookCondition bookCondition,
             // 将默认值20改成10，每页显示10条记录
             @PageableDefault(size = 10) Pageable pageable) {
@@ -132,7 +133,7 @@ public class BookController {
     }
 
     // 注意，这里 只能用value，不能name="/book/{id}"
-    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public BookInfo getInfo(@PathVariable Long id) {
         System.out.println("---id----:\t" + id);
 
