@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.servlet.http.Cookie;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -214,6 +216,23 @@ public class BookControllerTest {
     public void whendeleteSuccess() throws Exception {
 
         mockMvc.perform(delete("/book/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    }
+
+    // -------------下面是 -----cookie 和 header操作--------------
+    @Test
+    public void whenCookieExists() throws Exception {
+        mockMvc.perform(
+                get("/book/cookie/1").cookie(new Cookie("token", "123456")).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    // 主要测试 header
+    @Test
+    public void whenCookieHeaderExists() throws Exception {
+        mockMvc.perform(get("/book/cookieAndHeader/1").cookie(new Cookie("token", "123456")).header("auth", "xingej")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
     }
 
 }

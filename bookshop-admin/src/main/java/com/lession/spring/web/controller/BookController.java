@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -241,6 +243,39 @@ public class BookController {
         // 接收到请求，打印出
         System.out.println("--->:\t" + id);
 
+    }
+
+    // -------------下面是 -----cookie 和 header操作--------------
+    @GetMapping(value = "/cookie/{id}")
+    @JsonView(BookDetailView.class)
+    public BookInfo getInfo2(@PathVariable Long id, @CookieValue String token) {
+        System.out.println("---id----:\t" + id);
+
+        System.out.println("---token----:\t" + token);
+
+        BookInfo bookInfo = new BookInfo();
+
+        bookInfo.setId(id);
+        bookInfo.setName("战争与和平");
+
+        return bookInfo;
+    }
+
+    // 主要测试 header
+    @GetMapping(value = "/cookieAndHeader/{id}")
+    @JsonView(BookDetailView.class)
+    public BookInfo getInfo3(@PathVariable Long id, @CookieValue String token, @RequestHeader String auth) {
+        System.out.println("---id----:\t" + id);
+
+        System.out.println("---token----:\t" + token);
+        System.out.println("---auth----:\t" + auth);
+
+        BookInfo bookInfo = new BookInfo();
+
+        bookInfo.setId(id);
+        bookInfo.setName("战争与和平");
+
+        return bookInfo;
     }
 
 }
