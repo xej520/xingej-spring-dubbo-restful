@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -165,6 +167,19 @@ public class BookController {
 
         bookInfo.setId(id);
         bookInfo.setName("战争与和平");
+
+        return bookInfo;
+    }
+
+    @PostMapping
+    // @RequestBody 查询操作时，不需要添加这个注解
+    // 更新操作，插入操作时，需要添加这个注解
+    // 不然，无法解析，
+    // 你记住就可以了
+    public BookInfo create(@RequestBody BookInfo bookInfo) {
+        System.out.println("--->:\t" + bookInfo);
+
+        bookInfo.setId(1L);
 
         return bookInfo;
     }

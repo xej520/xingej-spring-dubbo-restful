@@ -1,6 +1,7 @@
 package com.lession.spring.web.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -140,6 +141,16 @@ public class BookControllerTest {
         mockMvc.perform(get("/book/ids/10").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is4xxClientError());
 
+    }
+
+    // 创建测试
+    @Test
+    public void whenCreateSuccess() throws Exception {
+
+        String context = "{\"id\":1,\"name\":\"战争与和平\",\"context\":null}";
+
+        mockMvc.perform(post("/book").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
     }
 
 }
