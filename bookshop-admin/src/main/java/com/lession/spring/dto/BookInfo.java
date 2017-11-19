@@ -2,6 +2,8 @@ package com.lession.spring.dto;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -48,6 +50,10 @@ public class BookInfo {
 
     private String name;
 
+    // 注意，单独使用这个注解，是不会生效的，
+    // 在使用到这个类的地方，必须加上
+    // @Valid注解，才可以的
+    @NotBlank
     private String context;
 
     private Date publishDate;

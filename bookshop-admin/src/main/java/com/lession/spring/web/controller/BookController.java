@@ -3,6 +3,8 @@ package com.lession.spring.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -177,6 +179,17 @@ public class BookController {
     // 不然，无法解析，
     // 你记住就可以了
     public BookInfo create(@RequestBody BookInfo bookInfo) {
+        System.out.println("--->:\t" + bookInfo);
+
+        bookInfo.setId(1L);
+
+        return bookInfo;
+    }
+
+    // 我是为了测试 ，体现出不同的学习进程，并没有在原始的方法上，操作，才加的
+    // "/c2"
+    @PostMapping("/c3")
+    public BookInfo create3(@Valid @RequestBody BookInfo bookInfo) {
         System.out.println("--->:\t" + bookInfo);
 
         bookInfo.setId(1L);
