@@ -1,5 +1,9 @@
 package com.lession.spring.web.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -50,9 +52,8 @@ public class BookControllerTest {
 
     @Test
     public void whenQuerySuccess() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/book").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
     }
 
     // 请求时，添加 参数
@@ -60,9 +61,8 @@ public class BookControllerTest {
     public void whenQuerySuccessAndParams() throws Exception {
         // name 请求参数，controller层里，接收时，也必须是name
         // 请求 与 接收 必须保持一致
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params").param("name", "hello, restfull")
-                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book/params").param("name", "hello, restfull").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(3));
     }
 
     // 请求时，添加 参数, 接收方，使用@RequestMapping注解
@@ -71,38 +71,34 @@ public class BookControllerTest {
         // name 请求参数，controller层里，接收时，也必须是name
         // 请求 与 接收 必须保持一致
         // name是请求参数名称，你用这个发送请求，那么，接收方，也必须，以这个参数来接收啊，
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params2").param("name", "hello, restfull")
-                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book/params2").param("name", "hello, restfull").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(3));
     }
 
     // 请求时，添加 参数, 接收方，使用@RequestMapping注解
     @Test
     public void whenQuerySuccessAndParams3() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params3").param("name", "hello, restfull")
-                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book/params3").param("name", "hello, restfull").param("categoryId", "2")
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
     }
 
     // 分页 测试
     // 因为Pageable 有默认值，因此，pageable可以不添加参数也可以的
     @Test
     public void whenQuerySuccessAndParams4() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params4").param("name", "hello, restfull")
-                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book/params4").param("name", "hello, restfull").param("categoryId", "2")
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
     }
 
     // 分页 测试
     // 使用了注解@PageableDefault,来修改默认的参数，如每页有多少条记录
     @Test
     public void whenQuerySuccessAndParams5() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params5").param("name", "hello, restfull")
-                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+        mockMvc.perform(get("/book/params5").param("name", "hello, restfull").param("categoryId", "2")
+                .accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
     }
 
     // 分页 测试
@@ -115,12 +111,11 @@ public class BookControllerTest {
 
     @Test
     public void whenQuerySuccessAndParams5a() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/book/params5").param("name", "hello, restfull").param("page", "1") // 查询2页的内容
+        mockMvc.perform(get("/book/params5").param("name", "hello, restfull").param("page", "1") // 查询2页的内容
                 .param("size", "5") // 每页显示5条记录
                 .param("sort", "name,desc", "createTime,asc") // 根据name字段，进行降序排序;可以对多个字段，进行排序
-                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
+                .param("categoryId", "2").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
     }
 
 }
