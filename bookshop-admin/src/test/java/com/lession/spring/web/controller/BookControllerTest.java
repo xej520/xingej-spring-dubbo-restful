@@ -153,4 +153,22 @@ public class BookControllerTest {
                 .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
     }
 
+    // 创建测试
+    // 时间问题，指定的时间是
+    // 2017-11-19 ,转换后，就称为了Sun Nov 19 08:00:00 CST 2017
+
+    // 变成8点了，应该是0点
+    // 因为跟标准时间，有8个小时的时差
+    // 如何解决呢？
+    // 需要在application.properties配置文件里，添加一个参数
+    // spring.jackson.time-zone = GMT+8
+    @Test
+    public void whenCreateSuccess2() throws Exception {
+
+        String context = "{\"id\":1,\"name\":\"战争与和平\",\"context\":null,\"publishDate\":\"2017-11-19\"}";
+
+        mockMvc.perform(post("/book").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
+    }
+
 }

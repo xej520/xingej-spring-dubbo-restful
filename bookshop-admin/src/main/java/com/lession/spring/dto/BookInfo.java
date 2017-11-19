@@ -1,5 +1,7 @@
 package com.lession.spring.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -48,6 +50,8 @@ public class BookInfo {
 
     private String context;
 
+    private Date publishDate;
+
     // id字段，在BookListView 视图/查询时，显示
     @JsonView(BookListView.class)
     public Long getId() {
@@ -80,7 +84,16 @@ public class BookInfo {
 
     @Override
     public String toString() {
-        return "BookInfo [id=" + id + ", name=" + name + ", context=" + context + "]";
+        return "BookInfo [id=" + id + ", name=" + name + ", context=" + context + ", publishDate=" + publishDate + "]";
+    }
+
+    @JsonView(BookDetailView.class)
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
 
 }
