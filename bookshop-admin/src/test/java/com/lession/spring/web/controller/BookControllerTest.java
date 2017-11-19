@@ -183,4 +183,16 @@ public class BookControllerTest {
                 .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
     }
 
+    // 测试，校验参数
+    // @NotBlank 与 @Valid
+    // 在组合成BookInfo之前，先进行校验，校验失败后，就直接返回了，程序不会往下进行了
+    @Test
+    public void whenCreateSuccess4() throws Exception {
+
+        String context = "{\"id\":1,\"name\":\"战争与和平\",\"context\":null,\"publishDate\":\"2017-11-19\"}";
+
+        mockMvc.perform(post("/book/c4").content(context).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"));
+    }
+
 }

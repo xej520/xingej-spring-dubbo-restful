@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -190,6 +191,26 @@ public class BookController {
     // "/c2"
     @PostMapping("/c3")
     public BookInfo create3(@Valid @RequestBody BookInfo bookInfo) {
+        System.out.println("--->:\t" + bookInfo);
+
+        bookInfo.setId(1L);
+
+        return bookInfo;
+    }
+
+    // 我是为了测试 ，体现出不同的学习进程，并没有在原始的方法上，操作，才加的
+    // "/c2"
+    // BindingResult 用来存储，
+    // @Valid校验的结果的，如果失败后，程序不会立即结束
+    // 而是，交给程序员去处理，
+    // 立即结束还是继续执行，由程序来进行判断
+    // 下面的测试用例的目的是，是可以继续执行的
+    @PostMapping("/c4")
+    public BookInfo create4(@Valid @RequestBody BookInfo bookInfo, BindingResult checkResult) {
+        if (checkResult.hasErrors()) {
+            checkResult.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+        }
+
         System.out.println("--->:\t" + bookInfo);
 
         bookInfo.setId(1L);
