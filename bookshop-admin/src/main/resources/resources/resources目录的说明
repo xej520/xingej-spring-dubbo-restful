@@ -1,0 +1,8 @@
+src/main/resources
+目录下的
+resources目录，
+1、存储的都是跟页面有关系的静态页面
+2、在bookshop-admin项目中，引入了bookshop项目，
+	其中，图书管理页面，是在bookshop项目中维护的
+这样做的好处，
+	bookshop-admin项目中，只需要引入其他模块的页面，即可了
