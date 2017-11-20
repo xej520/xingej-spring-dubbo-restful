@@ -278,4 +278,14 @@ public class BookController {
         return bookInfo;
     }
 
+    // -------------下面是 -----分析---spring boot异常处理逻辑--------------
+    // 主要测试 header
+    @GetMapping(value = "/exception/{id}")
+    @JsonView(BookDetailView.class)
+    public BookInfo getInfoException(@PathVariable Long id) {
+
+        throw new RuntimeException("service error in server!");
+
+    }
+
 }
