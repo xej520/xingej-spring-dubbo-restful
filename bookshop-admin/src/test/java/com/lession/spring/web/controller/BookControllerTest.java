@@ -235,4 +235,13 @@ public class BookControllerTest {
 
     }
 
+    // -------------下面是 -----拦截器-----测试---------
+
+    // 就是测试 TimeInterceptor 拦截器的
+    @Test
+    public void whenQueryTimeInterceptor() throws Exception {
+        mockMvc.perform(get("/book").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(3));
+    }
+
 }
