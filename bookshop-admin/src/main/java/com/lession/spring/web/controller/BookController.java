@@ -26,6 +26,7 @@ import com.lession.spring.dto.BookCondition;
 import com.lession.spring.dto.BookInfo;
 import com.lession.spring.dto.BookInfo.BookDetailView;
 import com.lession.spring.dto.BookInfo.BookListView;
+import com.lession.spring.web.support.MyExecption;
 
 /**
  * 构建BookController
@@ -279,12 +280,20 @@ public class BookController {
     }
 
     // -------------下面是 -----分析---spring boot异常处理逻辑--------------
-    // 主要测试 header
     @GetMapping(value = "/exception/{id}")
     @JsonView(BookDetailView.class)
     public BookInfo getInfoException(@PathVariable Long id) {
 
         throw new RuntimeException("service error in server!");
+
+    }
+
+    // 捕获自定义异常，测试
+    @GetMapping(value = "/exception2/{id}")
+    @JsonView(BookDetailView.class)
+    public BookInfo getInfoExceptionNot(@PathVariable Long id) {
+
+        throw new MyExecption("service error in server!");
 
     }
 

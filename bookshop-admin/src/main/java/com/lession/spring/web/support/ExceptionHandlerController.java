@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -28,6 +29,23 @@ public class ExceptionHandlerController {
 
         // 由于@RestControllerAdvice 这个注解的作用
         // 直接会将result对象，转换成json格式，返回给页面
+        return result;
+    }
+
+    // ---------捕获的是 自定义异常-----
+    @ExceptionHandler(MyExecption.class)
+    @ResponseStatus // 这个注解的意思，是修改返回给页面的状态码，
+    // 如果你不用这个注解的话，发生异常时，这个能够处理，返回给页面的状态码，就是200，而实际上，200是不对的
+    // 这个注解就是改变200的
+    // @ResponseStatus(code = httpStatus) 可以指定 返回给页面的 错误状态码的
+    public Map<String, Object> handleNotConnectException(MyExecption exception) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        // json里，会有两个属性，一个result，一个errorMsg
+        result.put("result", "failed");
+        result.put("errorMsg", exception.getMessage());
+
         return result;
     }
 
