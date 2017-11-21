@@ -40,8 +40,6 @@
 		</dependency>
 		
 		<!-- 用来添加分页功能的， 主要是使用Pageable对象的-->
-
-
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
@@ -53,8 +51,21 @@
 			<artifactId>bookshop</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
-		
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+      </dependency>
+      
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+      </dependency>
+
+      <dependency>
+      	<groupId>org.springframework.integration</groupId>
+      	<artifactId>spring-integration-file</artifactId>
+      </dependency>
 	</dependencies>
   
   
