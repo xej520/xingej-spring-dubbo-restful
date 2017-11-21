@@ -1,7 +1,13 @@
 package com.lession.spring.web.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -28,6 +34,31 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(timeInterceptor);
+    }
+
+    // 注册一个filter过滤器
+    // 先执行过滤器，再执行 拦截器
+    // 先将所有的过滤器都执行完了，再执行拦截器的
+    // 还有其他类型的FilterRegistrationBean，如SevlevtXXXX
+    // 基本的编码形式，都是下面的样子，只是，返回的类型bean不一样
+    @Bean
+    public FilterRegistrationBean characterEncodingFilterRegister() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+
+        // 创建一个关于 编码的filter的
+        CharacterEncodingFilter filter = new CharacterEncodingFilter("UTF-8");
+        filter.setForceEncoding(true);
+        registrationBean.setFilter(filter);
+
+        List<String> urls = new ArrayList<>();
+        // 指定 过滤的url路径，
+        // 只有在下面的路径下，使用filter
+        urls.add("/admin/book/*");
+        // urls.add("/*");
+        registrationBean.setUrlPatterns(urls);
+
+        return registrationBean;
+
     }
 
 }
