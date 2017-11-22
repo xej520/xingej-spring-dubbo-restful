@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lession.spring.dto.FileInfo;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 /**
  * 文件上传Controller
  * 
@@ -31,7 +34,8 @@ public class FileController {
 
     @PostMapping("/upload")
     // 参数的名称为file，必须与测试用例的第一个参数一致才行的
-    public FileInfo update(MultipartFile file) throws Exception {
+    @ApiOperation("文件上传") // 这样的话，在controller的ui页面，就可以看到中文解释了
+    public FileInfo update(@ApiParam("上传的文件对象") MultipartFile file) throws Exception {
 
         System.out.println(file.getContentType());
         System.out.println(file.getName());
@@ -52,6 +56,7 @@ public class FileController {
     }
 
     @GetMapping("download")
+    @ApiOperation("文件下载")
     public void downLoad(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String filePath = "E:/Project/xingej/xingej-spring-dubbo-restful/bookshop-admin/fileUpLoad/1511303606485.txt";
 

@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 
  * 为什么不直接使用book? 而是 bookinfo
@@ -48,6 +50,7 @@ public class BookInfo {
 
     private Long id;
 
+    @ApiModelProperty("图书名称")
     private String name;
 
     // 注意，单独使用这个注解，是不会生效的，

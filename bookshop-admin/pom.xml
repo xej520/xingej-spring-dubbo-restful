@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.lession.spring</groupId>
-  <artifactId>bookshop-admin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lession.spring</groupId>
+	<artifactId>bookshop-admin</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-  
-  	<!-- 添加Spring io模块 -->
+
+	<!-- 添加Spring io模块 -->
 	<!-- 作用：解决依赖之间的版本问题，自动选择合适的版本，你就不需要制定版本号了 -->
 	<dependencyManagement>
 		<dependencies>
@@ -38,13 +39,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		
-		<!-- 用来添加分页功能的， 主要是使用Pageable对象的-->
+
+		<!-- 用来添加分页功能的， 主要是使用Pageable对象的 -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
-		
+
 		<!-- 引入bookshop项目，这样bookshop项目的代码，就可以引用了 -->
 		<dependency>
 			<groupId>com.roncoo.spring</groupId>
@@ -52,22 +53,40 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-      </dependency>
-      
-      <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-      </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 
-      <dependency>
-      	<groupId>org.springframework.integration</groupId>
-      	<artifactId>spring-integration-file</artifactId>
-      </dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-file</artifactId>
+		</dependency>
+
+		<!-- 根据controller的方法，自动生成rest风格的文档；代码变化时自动变化 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+
+		<!-- 自动生成文档的页面，可以看到文档 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+
+
 	</dependencies>
-  
-  
-  
+
+
+
 </project>
