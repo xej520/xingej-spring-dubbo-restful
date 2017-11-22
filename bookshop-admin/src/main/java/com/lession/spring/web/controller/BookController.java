@@ -1,7 +1,9 @@
 package com.lession.spring.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.validation.Valid;
 
@@ -294,6 +296,37 @@ public class BookController {
     public BookInfo getInfoExceptionNot(@PathVariable Long id) {
 
         throw new MyExecption("service error in server!");
+
+    }
+
+    // -------------下面是 -----异步处理---http请求--------------
+
+    // 你要明白，哪些语句是 tomcat线程执行的，哪些是springMVC线程的
+    // Callable，的请求，与 响应 都是在同一个线程里
+
+    @GetMapping("/async")
+    public Callable<BookInfo> getInfo() {
+        long startTime = new Date().getTime();
+
+        System.out.println("这是tomcat主线程:\t" + Thread.currentThread().getName() + "开始");
+        Callable<BookInfo> result = () -> {
+
+            System.out.println("这是springMVC主线程:\t" + Thread.currentThread().getName() + "线程开始");
+            // 模拟服务，执行了1秒钟
+            Thread.sleep(1000);
+            BookInfo bookInfo = new BookInfo();
+            bookInfo.setName("spark");
+
+            System.out.println("这是springMVC主线程:\t" + Thread.currentThread().getName() + "线程结束:\t"
+                    + (new Date().getTime() - startTime));
+
+            return bookInfo;
+        };
+
+        long endTime = new Date().getTime();
+        System.out.println("这是tomcat主线程:\t" + Thread.currentThread().getName() + "结束:\t" + (endTime - startTime));
+
+        return result;
 
     }
 
