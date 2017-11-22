@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.validation.Valid;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lession.spring.dto.BookCondition;
@@ -38,6 +41,8 @@ import com.lession.spring.web.support.MyExecption;
 @RestController
 @RequestMapping(value = "/book")
 public class BookController {
+
+    private ConcurrentMap<Long, DeferredResult<BookInfo>> map = new ConcurrentHashMap<Long, DeferredResult<BookInfo>>();
 
     // 这就是一个rest服务，接收一个book请求，然后调用query()方法
     // 返还一个空的集合
@@ -328,6 +333,36 @@ public class BookController {
 
         return result;
 
+    }
+
+    // 若返回值是DeferredResult 类型的话
+    // 请求 与响应 分别在不同的线程里，
+    // 有点类似于Netty，或者JDK 多线程里的Future
+    // 先给你一个返回值的引用，但是并没有具体的值
+    // 不阻塞tomcat主线程，主线程可以做其他事件
+    // 跟Callable的最大区别是？
+
+    // 结果的获取，Callable必须等待，而DeferredResult 有了事件通知机制，等有了结果，才真正的返回真正的值
+    // 就好像，你烧水时，一直在看着水壶有没有开，这种情况属于 Callable
+    // 若，你烧水时，去做其他时间，如看电视了，等水壶开了，会 发起 声音 通知你，我已经做了，你可以用了。DeferredResult就属于这种形式吧
+    @GetMapping("/async2/{id}")
+    public DeferredResult<BookInfo> getInfoDefferred(@PathVariable Long id) {
+        long startTime = new Date().getTime();
+
+        System.out.println("这是tomcat主线程:\t" + Thread.currentThread().getName() + "开始");
+
+        DeferredResult<BookInfo> result = new DeferredResult<>();
+
+        map.put(id, result);
+
+        long endTime = new Date().getTime();
+        System.out.println("这是tomcat主线程:\t" + Thread.currentThread().getName() + "结束:\t" + (endTime - startTime));
+
+        return result;
+    }
+
+    private void listenMessage(BookInfo bookInfo) {
+        map.get(bookInfo.getId()).setResult(bookInfo);
     }
 
 }
