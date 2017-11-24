@@ -11,6 +11,9 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -361,8 +364,32 @@ public class BookController {
         return result;
     }
 
+    @SuppressWarnings("unused")
     private void listenMessage(BookInfo bookInfo) {
         map.get(bookInfo.getId()).setResult(bookInfo);
+    }
+
+    // -------------下面是 -----第5章-----Spring security--------------
+
+    // -------------下面是 ---展示自己的代码(我们自己)是如何使用第一个机制的(保存和获取用户身份信息的)--------------
+    @RequestMapping(value = { "/security/getInfo" }, method = RequestMethod.GET)
+    public List<BookInfo> querySpringSecurity() {
+        // 获取SecurityContext对象
+        // 注意，不会直接跟 SecurityContextHolderStrategy 这个类 打交道的
+        // 这个类SecurityContextHolderStrategy被 SecurityContextHolder 包装起来了
+        // 其实，内部，还是通过SecurityContextHolderStrategy 类获取的
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        // 获取Authentication对象
+        Authentication authentication = securityContext.getAuthentication();
+
+        List<BookInfo> books = new ArrayList<>();
+
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+        books.add(new BookInfo());
+
+        return books;
     }
 
 }
