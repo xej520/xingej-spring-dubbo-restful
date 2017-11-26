@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * 
@@ -16,6 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    private AuthenticationSuccessHandler bookShopAuthenticationSuccessHandler;
 
     // 配置自定义的 身份认证 逻辑
     // 也就是说，当用户在输入用户名和密码时，不再用框架自带的 校验
@@ -34,7 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 实现表单认证，并且，添加 页面
-        http.formLogin().loginPage("/login.html").loginProcessingUrl("/auth").and().authorizeRequests()
+        http.formLogin().loginPage("/login.html").loginProcessingUrl("/auth")
+                // 添加认证成功后，处理
+                .successHandler(bookShopAuthenticationSuccessHandler).and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
