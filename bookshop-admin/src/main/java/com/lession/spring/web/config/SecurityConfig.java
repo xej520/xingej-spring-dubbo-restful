@@ -1,5 +1,7 @@
 package com.lession.spring.web.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,6 +13,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 // 添加注解
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    // 配置自定义的 身份认证 逻辑
+    // 也就是说，当用户在输入用户名和密码时，不再用框架自带的 校验
+    // 而是，我自己定义的 身份认证逻辑
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.userDetailsService(myUserDetailsService);
+
+    }
 
     // 认证方式是
     // formLogin
