@@ -21,6 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler bookShopAuthenticationSuccessHandler;
 
+    @Autowired
+    private BookShopAuthenticationFailureHandler bookShopAuthenticationFailureHandler;
+
     // 配置自定义的 身份认证 逻辑
     // 也就是说，当用户在输入用户名和密码时，不再用框架自带的 校验
     // 而是，我自己定义的 身份认证逻辑
@@ -39,8 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 实现表单认证，并且，添加 页面
         http.formLogin().loginPage("/login.html").loginProcessingUrl("/auth")
-                // 添加认证成功后，处理
-                .successHandler(bookShopAuthenticationSuccessHandler).and().csrf().disable().authorizeRequests()
+                // 添加认证成功后，处理器
+                .successHandler(bookShopAuthenticationSuccessHandler)
+                // 添加 认证失败后，处理器
+                .failureHandler(bookShopAuthenticationFailureHandler).and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
