@@ -1,12 +1,17 @@
 package com.lession.spring.web.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * 
@@ -24,6 +29,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BookShopAuthenticationFailureHandler bookShopAuthenticationFailureHandler;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+        // 启动项目时，创建一个 表，来存储token
+        tokenRepositoryImpl.setCreateTableOnStartup(true);
+
+        // setDataSource() 与 setJdbcTemplate(jdbcTemplate);
+        // 使用其中的一个就可以了
+        tokenRepositoryImpl.setDataSource(dataSource);
+
+        // 基于数据库的 存储 token的对象
+        return tokenRepositoryImpl;
+
+    }
 
     // 配置自定义的 身份认证 逻辑
     // 也就是说，当用户在输入用户名和密码时，不再用框架自带的 校验
@@ -46,7 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 添加认证成功后，处理器
                 .successHandler(bookShopAuthenticationSuccessHandler)
                 // 添加 认证失败后，处理器
-                .failureHandler(bookShopAuthenticationFailureHandler).and().csrf().disable().authorizeRequests()
+                .failureHandler(bookShopAuthenticationFailureHandler).and().rememberMe()
+                .tokenRepository(persistentTokenRepository()).and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
