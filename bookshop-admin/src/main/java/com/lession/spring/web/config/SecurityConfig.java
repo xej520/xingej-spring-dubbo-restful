@@ -37,7 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
         // 启动项目时，创建一个 表，来存储token
-        tokenRepositoryImpl.setCreateTableOnStartup(true);
+        // 第一次启动时，需要设置为True
+        // 第2次启动时，就不需要这个了，因此注释掉哦
+        // tokenRepositoryImpl.setCreateTableOnStartup(true);
 
         // setDataSource() 与 setJdbcTemplate(jdbcTemplate);
         // 使用其中的一个就可以了
