@@ -75,7 +75,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 将token持久化到数据库里，用于下次对比操作
                 .tokenRepository(persistentTokenRepository())
                 // 控制 token的时间，这里是60秒
-                .tokenValiditySeconds(60).and().csrf().disable().authorizeRequests()
+                .tokenValiditySeconds(60).and()
+                // session的并发管理
+                // 当前系统中，session的最大数量是1
+                .sessionManagement()
+                // 测试时，用两个浏览器测试，看看浏览器的报错，第二次登陆时，前面的session会过期掉
+                .maximumSessions(1).and().and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
