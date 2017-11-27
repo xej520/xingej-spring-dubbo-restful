@@ -80,7 +80,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 当前系统中，session的最大数量是1
                 .sessionManagement()
                 // 测试时，用两个浏览器测试，看看浏览器的报错，第二次登陆时，前面的session会过期掉
-                .maximumSessions(1).and().and().csrf().disable().authorizeRequests()
+                .maximumSessions(1)
+                // 第一次登录了后，就不允许再用其他浏览器登录了
+                // 也就是说，当前用户只能有一个session
+                .maxSessionsPreventsLogin(true).and().and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
