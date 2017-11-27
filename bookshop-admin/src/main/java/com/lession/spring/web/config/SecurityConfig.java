@@ -72,7 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(bookShopAuthenticationSuccessHandler)
                 // 添加 认证失败后，处理器
                 .failureHandler(bookShopAuthenticationFailureHandler).and().rememberMe()
-                .tokenRepository(persistentTokenRepository()).and().csrf().disable().authorizeRequests()
+                // 将token持久化到数据库里，用于下次对比操作
+                .tokenRepository(persistentTokenRepository())
+                // 控制 token的时间，这里是60秒
+                .tokenValiditySeconds(60).and().csrf().disable().authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
