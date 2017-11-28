@@ -86,7 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 // 第一次登录了后，就不允许再用其他浏览器登录了
                 // 也就是说，当前用户只能有一个session
-                .maxSessionsPreventsLogin(true).and().and().csrf().disable().authorizeRequests()
+                .maxSessionsPreventsLogin(true).and().and().csrf().disable()
+                // 授权 配置
+                .authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
                 // .antMatchers(HttpMethod.GET).permitAll().and().authorizeRequests()
@@ -95,7 +97,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/book/*", "/login.html", "/auth", "/session.html").permitAll()
 
                 // 但是，其他请求，必须经过身份认证才可以的
-                .anyRequest().authenticated();
+                // .anyRequest().authenticated();
+                // 通过java 的配置，来控制URL的权限
+                .anyRequest().access("hasAuthority('admin')");
 
         // http.httpBasic().and().authorizeRequests()
         //

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,7 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
             // 进行加密
             String password = new BCryptPasswordEncoder().encode("123456");
             // 加密后，spring 框架 会自动 在对password进行解密的，这样就跟页面上，输入的密码一样了
-            return new User("zhangsan", password, new ArrayList<GrantedAuthority>());
+            return new User("zhangsan", password, AuthorityUtils.createAuthorityList("admin", "xxxx"));
         }
 
         return null;
