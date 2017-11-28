@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,7 @@ import com.lession.spring.dto.BookCondition;
 import com.lession.spring.dto.BookInfo;
 import com.lession.spring.dto.BookInfo.BookDetailView;
 import com.lession.spring.dto.BookInfo.BookListView;
+import com.lession.spring.service.BookService;
 import com.lession.spring.web.support.MyExecption;
 
 /**
@@ -44,6 +46,10 @@ import com.lession.spring.web.support.MyExecption;
 @RestController
 @RequestMapping(value = "/book")
 public class BookController {
+
+    // 下面这个引用，是测试 “使用注解，来控制URL权限” 知识点的
+    @Autowired
+    private BookService bookService;
 
     private ConcurrentMap<Long, DeferredResult<BookInfo>> map = new ConcurrentHashMap<Long, DeferredResult<BookInfo>>();
 
@@ -392,4 +398,25 @@ public class BookController {
         return books;
     }
 
+    // -------------下面是 ----测试---使用注解来控制URL权限--------------
+    // 但是 注意
+    // ------一般不使用 这种方式 进行 URL权限控制
+    // 因为，不建议在方法上，进行控制，
+    // 因为，这个方法很有可能被其他模块调用
+    // 还有如果使用dubbo的话，也是不能通过的，不在同一个线程里
+    // 主要测试 header
+    @GetMapping(value = "/zhujie/{id}")
+    @JsonView(BookDetailView.class)
+    public BookInfo getKongzhiUrlByZhujie(@PathVariable Long id) {
+        bookService.getKongzhiUrlByZhujie(id);
+
+        System.out.println("---id----:\t" + id);
+
+        BookInfo bookInfo = new BookInfo();
+
+        bookInfo.setId(id);
+        bookInfo.setName("战争与和平");
+
+        return bookInfo;
+    }
 }
