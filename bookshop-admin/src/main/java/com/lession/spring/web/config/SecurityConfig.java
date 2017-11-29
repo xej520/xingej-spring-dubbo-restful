@@ -99,7 +99,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 只要是book开头的URL请求，也可以都访问的，不需要输入用户名和密码
                 .antMatchers("/book/*", "/login.html", "/auth", "/session.html").permitAll()
-
+                // 自定义授权策略 测试，方式一： 访问shopURL的权限是a角色或b角色
+                .antMatchers("/shop/*").access("hasRole('a') or hasRole('b')")
+                // 这种方式的缺点：不够灵活，扩展性不好，比方说，现在shopURL的权限发生变化，或者，新增角色，都需要修改源码的
+                // 而且，需要重启 系统，重启上面
+                .antMatchers("/user/*").access("hasRole('c') or hasRole('d')")
                 // 但是，其他请求，必须经过身份认证才可以的
                 // .anyRequest().authenticated();
                 // 通过java 的配置，来控制URL的权限
