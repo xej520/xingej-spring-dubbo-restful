@@ -107,7 +107,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 但是，其他请求，必须经过身份认证才可以的
                 // .anyRequest().authenticated();
                 // 通过java 的配置，来控制URL的权限
-                .anyRequest().access("hasAuthority('admin')");
+                // .anyRequest().access("hasAuthority('admin')");
+
+                // 自定义授权策略 测试，方式二：
+                .anyRequest().access("@bookSecurity.check(authentication, request)");
 
         // http.httpBasic().and().authorizeRequests()
         //
