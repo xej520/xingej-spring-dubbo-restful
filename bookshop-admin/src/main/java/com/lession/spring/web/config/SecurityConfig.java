@@ -3,6 +3,7 @@ package com.lession.spring.web.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 // 添加注解
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 使用注解来控制 URL 时，用到的
+@EnableOAuth2Sso // 支持授权认证流程，使用OAuth2进行第三方登录
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

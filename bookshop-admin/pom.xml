@@ -95,6 +95,12 @@
 			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
 
+		<!-- OAuth2 进行授权认证，第三方认证 -->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+
 	</dependencies>
 
 
