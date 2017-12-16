@@ -85,6 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // session的并发管理
                 // 当前系统中，session的最大数量是1
                 .sessionManagement()
+                // 每次请求成功后，就要改变sessionID，"防止固定攻击"
+                .sessionFixation().changeSessionId()
                 // session失效时，会跳到登录页面
                 .invalidSessionUrl("/session.html")
 
