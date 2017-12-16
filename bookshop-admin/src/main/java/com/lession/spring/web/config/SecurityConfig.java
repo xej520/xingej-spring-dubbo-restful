@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * 
@@ -94,8 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 // 第一次登录了后，就不允许再用其他浏览器登录了
                 // 也就是说，当前用户只能有一个session
-                .maxSessionsPreventsLogin(true).and().and().csrf().disable()
-                // 授权 配置
+                .maxSessionsPreventsLogin(true).and().and().csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // 授权
+                .and() // 配置
                 .authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
