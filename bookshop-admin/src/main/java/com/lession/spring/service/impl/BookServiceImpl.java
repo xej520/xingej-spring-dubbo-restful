@@ -2,6 +2,7 @@ package com.lession.spring.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.lession.spring.dto.BookInfo;
 import com.lession.spring.service.BookService;
 
 /**
@@ -15,6 +16,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void getKongzhiUrlByZhujie(Long id) {
         System.out.println("------测试使用注解来控制URL权限------");
+    }
+
+    @Override
+    public BookInfo getInfo(Long id) {
+
+        return null;
     }
 
 }
