@@ -46,7 +46,9 @@
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
 
-		<!-- 引入bookshop项目，这样bookshop项目的代码，就可以引用了 -->
+		<!-- 引入bookshop项目，这样bookshop项目的代码，就可以引用了 
+			
+		-->
 		<dependency>
 			<groupId>com.roncoo.spring</groupId>
 			<artifactId>bookshop</artifactId>
@@ -83,11 +85,6 @@
 			<version>2.6.1</version>
 		</dependency>
 
-		<!-- spring security 添加上依赖，就可以使用安全认证了 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
 
 		<!-- spring session测试 -->
 		<dependency>
