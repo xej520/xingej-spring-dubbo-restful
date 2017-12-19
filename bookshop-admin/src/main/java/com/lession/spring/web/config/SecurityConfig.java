@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * 
@@ -85,19 +84,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(60).and()
                 // session的并发管理
                 // 当前系统中，session的最大数量是1
-                .sessionManagement()
-                // 每次请求成功后，就要改变sessionID，"防止固定攻击"
-                .sessionFixation().changeSessionId()
-                // session失效时，会跳到登录页面
-                .invalidSessionUrl("/session.html")
-
-                // 测试时，用两个浏览器测试，看看浏览器的报错，第二次登陆时，前面的session会过期掉
-                .maximumSessions(1)
-                // 第一次登录了后，就不允许再用其他浏览器登录了
-                // 也就是说，当前用户只能有一个session
-                .maxSessionsPreventsLogin(true).and().and().csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // 授权
-                .and() // 配置
+                // .sessionManagement()
+                // // 每次请求成功后，就要改变sessionID，"防止固定攻击"
+                // .sessionFixation().changeSessionId()
+                // // session失效时，会跳到登录页面
+                // .invalidSessionUrl("/session.html")
+                //
+                // // 测试时，用两个浏览器测试，看看浏览器的报错，第二次登陆时，前面的session会过期掉
+                // .maximumSessions(1)
+                // // 第一次登录了后，就不允许再用其他浏览器登录了
+                // // 也就是说，当前用户只能有一个session
+                // .maxSessionsPreventsLogin(true)
+                // .and()
+                // .and()
+                .csrf().disable()
+                // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                // // 授权
+                // .and() // 配置
                 .authorizeRequests()
 
                 // 只要controller里URL 是GET请求的 都可以访问
