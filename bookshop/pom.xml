@@ -18,6 +18,7 @@
 
 	<!-- 添加Spring io模块 -->
 	<!-- 作用：解决依赖之间的版本问题，自动选择合适的版本，你就不需要制定版本号了 -->
+	<!--  -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -29,6 +30,12 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.2.RELEASE</version>
+	</parent>
 
 	<dependencies>
 		<!-- 操作数据库的 -->
@@ -65,15 +72,28 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.11.0</version>
 		</dependency>
-		
-				<!-- spring security 添加上依赖，就可以使用安全认证了 -->
+
+		<!-- spring security 添加上依赖，就可以使用安全认证了 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
-		
+
+
 	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 
 </project>
