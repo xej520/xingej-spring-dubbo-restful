@@ -85,8 +85,25 @@
 			<artifactId>bookshop-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
-		
+
+		<!-- 引入dubbo依赖-->
+		<!-- 虽然有更新的版本，但是，阿里官方推荐使用2.4.9版本 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.4.9</version>
+			<!-- 由于dubbo需要依赖spring框架，但是，它依赖的版本2.x，版本比较低，我们现在使用的spring 版本比较高
+			因此，将dubbo依赖的spring进行排除，使用我们自己的spring -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+
 	</dependencies>
 
 
