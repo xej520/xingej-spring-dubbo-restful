@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -46,6 +48,8 @@ import com.roncoo.service.BookService;
 @RestController
 @RequestMapping(value = "/book")
 public class BookController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     // 下面这个引用，是测试 “使用注解，来控制URL权限” 知识点的
     @Autowired
@@ -419,4 +423,15 @@ public class BookController {
 
         return bookInfo;
     }
+
+    // ----------------------测试---由ORM框架到MVC框架的演进-------
+    @GetMapping(value = "mvc/{id}")
+    public BookInfo getMVC(@PathVariable Long id) {
+        BookInfo info = bookService.getInfo(id);
+
+        System.out.println("------ORM框架到----MVC框架----演进成功！---");
+
+        return info;
+    }
+
 }
