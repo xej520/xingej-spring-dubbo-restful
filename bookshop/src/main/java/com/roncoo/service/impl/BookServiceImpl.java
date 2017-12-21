@@ -4,15 +4,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lesson.dto.BookInfo;
+import com.lesson.service.BookService;
 import com.roncoo.domain.Book;
-import com.roncoo.dto.BookInfo;
 import com.roncoo.repository.BookRepository;
-import com.roncoo.service.BookService;
 
-/**
- * 在想拦截的方法里，添加注解，就可以了
- * 
- * 服务层是在controller层和Repository层之间的，做连接的，在dao和domain层做转换的
+/***
+ * 在想拦截的方法里，添加注解，就可以了**服务层是在controller层和Repository层之间的，做连接的，在dao和domain层做转换的**
  * 
  * @author erjun 2017年11月29日 上午6:25:36
  */
