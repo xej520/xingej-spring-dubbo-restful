@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 至少配置3个标签 -->
+	
+	<!-- 应用名称，提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="bookshop-provider" />
+
+	<!-- 配置注册中心：使用zookeeper注册中心暴露服务地址 -->
+	<!-- dubbo支持的注册中心，有很多种，这里使用的是zookeeper -->
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
+
+	<!-- 声明需要暴露的服务接口 -->
+	<!-- 声明服务，需要设置3个属性，interface,ref,version -->
+	<!-- 在dubbo世界中，同一个服务可以支持多个版本，消费者可以根据版本来进行消费 -->
+	<!-- group属性，可以没有，设置这个有什么作用呢？
+		使用场景：当有两个不同实现版本的BookService时，就可以设置group属性了；也就是说，根据group来进行区分
+	 -->
+	<dubbo:service interface="com.lesson.service.BookService" ref="bookService" version ="1.0" group="roncoo"></dubbo:service>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
