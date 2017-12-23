@@ -10,7 +10,7 @@
 
 	<!-- 配置注册中心：使用zookeeper注册中心暴露服务地址 -->
 	<!-- dubbo支持的注册中心，有很多种，这里使用的是zookeeper -->
-	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
+	<dubbo:registry protocol="zookeeper" address="192.168.1.120:2181"></dubbo:registry>
 
 	<!-- 声明需要暴露的服务接口 -->
 	<!-- 声明服务，需要设置3个属性，interface,ref,version -->
@@ -18,8 +18,16 @@
 	<!-- group属性，可以没有，设置这个有什么作用呢？
 		使用场景：当有两个不同实现版本的BookService时，就可以设置group属性了；也就是说，根据group来进行区分
 	 -->
-	<dubbo:service interface="com.lesson.service.BookService" ref="bookService" version ="1.0" group="roncoo"></dubbo:service>
-
+	<dubbo:service interface="com.lesson.service.BookService" ref="bookService" version ="1.0" group="roncoo" ></dubbo:service>
+	
+	<!-- 生产者端：暴露dubbo服务的IP,端口 -->
+	<!-- 
+		name:必须是dubbo，
+		host目前不要指定dubbo 服务器地址，
+		port：只要不冲突，基本上，可以随便指定吧
+	 -->
+	<dubbo:protocol  name="dubbo" port="20889"></dubbo:protocol>
+	
 </beans>
 
 
