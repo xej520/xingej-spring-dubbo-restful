@@ -34,11 +34,11 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lession.spring.web.support.MyExecption;
-import com.roncoo.dto.BookCondition;
-import com.roncoo.dto.BookInfo;
-import com.roncoo.dto.BookInfo.BookDetailView;
-import com.roncoo.dto.BookInfo.BookListView;
-import com.roncoo.service.BookService;
+import com.lesson.dto.BookCondition;
+import com.lesson.dto.BookInfo;
+import com.lesson.dto.BookInfo.BookDetailView;
+import com.lesson.dto.BookInfo.BookListView;
+import com.lesson.service.BookService;
 
 /**
  * 构建BookController
@@ -64,10 +64,18 @@ public class BookController {
     @RequestMapping(value = { "/", "" }, method = RequestMethod.GET)
     public List<BookInfo> query() {
         List<BookInfo> books = new ArrayList<>();
+        BookInfo bookInfo = new BookInfo();
+        bookInfo.setName("天龙八部");
 
-        books.add(new BookInfo());
-        books.add(new BookInfo());
-        books.add(new BookInfo());
+        BookInfo bookInfo2 = new BookInfo();
+        bookInfo2.setName("神雕侠侣");
+
+        BookInfo bookInfo3 = new BookInfo();
+        bookInfo3.setName("金庸");
+
+        books.add(bookInfo);
+        books.add(bookInfo2);
+        books.add(bookInfo3);
 
         return books;
     }

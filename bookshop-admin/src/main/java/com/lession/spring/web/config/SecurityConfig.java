@@ -1,10 +1,7 @@
 package com.lession.spring.web.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * 
@@ -36,25 +31,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BookShopAuthenticationFailureHandler bookShopAuthenticationFailureHandler;
 
-    @Autowired
-    private DataSource dataSource;
+    // @Autowired
+    // private DataSource dataSource;
 
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
-        // 启动项目时，创建一个 表，来存储token
-        // 第一次启动时，需要设置为True
-        // 第2次启动时，就不需要这个了，因此注释掉哦
-        // tokenRepositoryImpl.setCreateTableOnStartup(true);
-
-        // setDataSource() 与 setJdbcTemplate(jdbcTemplate);
-        // 使用其中的一个就可以了
-        tokenRepositoryImpl.setDataSource(dataSource);
-
-        // 基于数据库的 存储 token的对象
-        return tokenRepositoryImpl;
-
-    }
+    // @Bean
+    // public PersistentTokenRepository persistentTokenRepository() {
+    // JdbcTokenRepositoryImpl tokenRepositoryImpl = new
+    // JdbcTokenRepositoryImpl();
+    // // 启动项目时，创建一个 表，来存储token
+    // // 第一次启动时，需要设置为True
+    // // 第2次启动时，就不需要这个了，因此注释掉哦
+    // // tokenRepositoryImpl.setCreateTableOnStartup(true);
+    //
+    // // setDataSource() 与 setJdbcTemplate(jdbcTemplate);
+    // // 使用其中的一个就可以了
+    // // tokenRepositoryImpl.setDataSource(dataSource);
+    //
+    // // 基于数据库的 存储 token的对象
+    // return tokenRepositoryImpl;
+    //
+    // }
 
     // 配置自定义的 身份认证 逻辑
     // 也就是说，当用户在输入用户名和密码时，不再用框架自带的 校验
@@ -77,11 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 添加认证成功后，处理器
                 .successHandler(bookShopAuthenticationSuccessHandler)
                 // 添加 认证失败后，处理器
-                .failureHandler(bookShopAuthenticationFailureHandler).and().rememberMe()
+                .failureHandler(bookShopAuthenticationFailureHandler)
+                // .and()
+                // .rememberMe()
                 // 将token持久化到数据库里，用于下次对比操作
-                .tokenRepository(persistentTokenRepository())
+                // .tokenRepository(persistentTokenRepository())
                 // 控制 token的时间，这里是60秒
-                .tokenValiditySeconds(60).and()
+                // .tokenValiditySeconds(60)
+                .and()
                 // session的并发管理
                 // 当前系统中，session的最大数量是1
                 // .sessionManagement()

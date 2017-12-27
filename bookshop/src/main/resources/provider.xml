@@ -24,9 +24,14 @@
 	<!-- 
 		name:必须是dubbo，
 		host目前不要指定dubbo 服务器地址，
-		port：只要不冲突，基本上，可以随便指定吧
+		
+		port：提供bookService的端口号
 	 -->
-	<dubbo:protocol  name="dubbo" port="20889"></dubbo:protocol>
+	<dubbo:protocol  name="dubbo"  port="20880"></dubbo:protocol>
+	
+	<!-- 具体的实现bean,用来注入-->  
+	<!-- 具体的bean来注入 -->
+    <bean id="bookService" class="com.roncoo.service.impl.BookServiceImpl" />  
 	
 </beans>
 

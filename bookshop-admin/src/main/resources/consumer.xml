@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 至少配置3个标签 -->
+
+	<!-- 应用名称，提供方应用信息，用于计算依赖关系 其实，名字无所谓，仅仅是用来展示用的 -->
+	<dubbo:application name="bookshop-admin" />
+
+	<!-- 配置注册中心：使用zookeeper注册中心暴露服务地址 -->
+	<!-- dubbo支持的注册中心，有很多种，这里使用的是zookeeper -->
+	<dubbo:registry protocol="zookeeper" address="192.168.1.120:2181"></dubbo:registry>
+
+	<!-- 可以先采用直连，后采用zookeeper形式 -->
+	<!-- <dubbo:registry address="N/A" /> -->
+
+	<!-- 声明需要暴露的服务接口 -->
+	<!-- id 表示，当前 BookService接口，dubbo会产生一个代理类，将这个代理类放到spring的容器中时，bean的ID-->
+	<dubbo:reference id="bookService" interface="com.lesson.service.BookService"
+		version="1.0" group="roncoo" url="dubbo://192.168.1.101:20880" timeout="80000" retries="0"></dubbo:reference>
+
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
