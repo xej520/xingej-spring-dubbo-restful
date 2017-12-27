@@ -1,5 +1,9 @@
 package com.lesson.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.lesson.dto.BookCondition;
 import com.lesson.dto.BookInfo;
 
 public interface BookService {
@@ -12,5 +16,13 @@ public interface BookService {
     // 因此，可以将此实现类放在
     // bookshop里，作为公共的服务
     BookInfo getInfo(Long id);
+
+    Page<BookInfo> query(BookCondition condition, Pageable pageable);
+
+    BookInfo create(BookInfo bookInfo);
+
+    BookInfo update(BookInfo bookInfo);
+
+    void delete(Long id);
 
 }
