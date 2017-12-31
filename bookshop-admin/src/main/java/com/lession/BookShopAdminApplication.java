@@ -3,11 +3,19 @@
  */
 package com.lession;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -27,6 +35,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan(basePackages = { "com" })
 
 @ImportResource("classpath:consumer.xml")
+@EnableCaching // 启动缓存
+@EnableScheduling // 启动定时任务
 public class BookShopAdminApplication {
 
     /**
@@ -41,6 +51,29 @@ public class BookShopAdminApplication {
         for (String key : allBeanNames) {
             System.out.println("-------->:\t" + key);
         }
+    }
+
+    @Bean
+    public CacheManagerCustomizer<RedisCacheManager> customizer() {
+        return new CacheManagerCustomizer<RedisCacheManager>() {
+
+            @Override
+            public void customize(RedisCacheManager cacheManager) {
+
+                // 方式一：个性化指定每一类，过期的时间，
+                Map<String, Long> map = new HashMap<String, Long>();
+
+                map.put("books", 1000L);// books类的缓存过期时间是1000秒
+                map.put("users", 100L);// users类的缓存过期时间是100秒
+                map.put("shopInfo", 200L);// shopInfo类的缓存过期时间是200秒
+                // -----请注意，你是不能单独指定某一个id的缓存过期时间的，除非你自己去实现XXXCacheManger的
+                cacheManager.setExpires(map);
+
+                // 方式二：设置所有的缓存，时间一直
+                // 往redis存储的缓存，过期时间都是10秒钟
+                // cacheManager.setDefaultExpiration(10);
+            }
+        };
     }
 
 }

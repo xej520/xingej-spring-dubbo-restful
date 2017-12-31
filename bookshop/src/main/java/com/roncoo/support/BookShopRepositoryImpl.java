@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 使用自定义的Repostiory的方法？
@@ -26,6 +28,7 @@ public class BookShopRepositoryImpl<T> extends SimpleJpaRepository<T, Long> {
 
     // 每次调用前，都会打印一条信息
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public <S extends T> S save(S entity) {
         System.out.println("---保存了---->:\t" + entity.getClass().getSimpleName());
         return super.save(entity);

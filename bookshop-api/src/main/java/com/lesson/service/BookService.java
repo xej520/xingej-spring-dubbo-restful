@@ -25,4 +25,8 @@ public interface BookService {
 
     void delete(Long id);
 
+    // 定时任务处理
+    // 定时任务，必须是无返回值的，无输入参数的
+    void task() throws Exception;
+
 }

@@ -133,6 +133,13 @@
 		</dependency>
 
 
+		<!-- 引入缓存的存储类型是redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		
+		</dependency>
+
 
 
 
